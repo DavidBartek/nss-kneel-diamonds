@@ -25,19 +25,26 @@ const database = {
         { id: 4, metal: "Platinum", price: 795.45 },
         { id: 5, metal: "Palladium", price: 1241.0 }
     ],
+    shapes: [
+        { id: 1, shape: "ring", multiplier: 1 },
+        { id: 2, shape: "earrings", multiplier: 2 },
+        { id: 3, shape: "necklace", multiplier: 4 }
+    ],
     customOrders: [
         {
             id: 1,
             metalId: 3,
             sizeId: 2,
             styleId: 3,
+            shapeId: 1,
             timestamp: 1614659931693
         }
     ],
     orderBuilder: {  // this state has to be stored as an *object* (not array, string, etc.) because it will be keeping track of many kinds of data types, with key-value pairings
         metalId: null,
         sizeId: null,
-        styleId: null
+        styleId: null,
+        shapeId: null
     },
 }
 
@@ -53,6 +60,10 @@ export const getSizes = () => {
 
 export const getMetals = () => {
     return database.metals.map(metal => ({ ...metal }))
+}
+
+export const getShapes = () => {
+    return database.shapes.map(shape => ({...shape}))
 }
 
 export const getOrders = () => {
@@ -72,6 +83,10 @@ export const setSize = (id) => {
 
 export const setStyle = (id) => {
     database.orderBuilder.styleId = id
+}
+
+export const setShape = (id) => {
+    database.orderBuilder.shapeId = id
 }
 
 // Setter function - this function will be invoked to change/set the permanent state of customOrders in the database.

@@ -1,10 +1,13 @@
-import { getOrders, getMetals, getSizes, getStyles } from "./database.js"
+// ***
+
+import { getOrders, getMetals, getSizes, getStyles, getShapes } from "./database.js"
 
 const buildOrderListItem = (order) => {
     // assign arrays from database to variables
     const metals = getMetals()
     const sizes = getSizes()
     const styles = getStyles()
+    const shapes = getShapes()
 
     // the function you pass to find() must return true/false
 
@@ -24,9 +27,14 @@ const buildOrderListItem = (order) => {
             return style.id === order.styleId
         }
     )
+    const foundShape = shapes.find(
+        (shape) => {
+            return shape.id === order.shapeId
+        }
+    )
 
     // add found prices, assign to totalCost
-    const totalCost = foundMetal.price + foundSize.price + foundStyle.price
+    const totalCost = ((foundMetal.price + foundSize.price + foundStyle.price) * foundShape.multiplier)
 
     // interpolates the found metal price into the HTML string. toLocaleString() method formats to spec
     const costString = totalCost.toLocaleString("en-US", {

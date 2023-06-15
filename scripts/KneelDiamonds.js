@@ -1,6 +1,9 @@
+// ***
+
 import { Metals } from "./Metals.js"
 import { DiamondSizes } from "./DiamondSizes.js"
 import { JewelryStyles } from "./JewelryStyles.js"
+import { Shapes } from "./shapes.js"
 import { Orders } from "./Orders.js"
 import { addCustomOrder } from "./database.js"
 
@@ -11,6 +14,8 @@ import { addCustomOrder } from "./database.js"
 // if the id of the clickedItem element is "orderButton",
 // addCustomOrder() from database.js is called
 // this will change the permanent state of the application, adding to the HTML
+
+// ** does this event listener HAVE to be located here?
 
 document.addEventListener(
     "click",
@@ -40,7 +45,9 @@ export const KneelDiamonds = () => {
                 ${JewelryStyles()}
             </section>
         </article>
-
+        <div class="shapeChoices">
+        ${Shapes()}
+        </div>
         <article>
             <button id="orderButton">Create Custom Order</button>
         </article>
