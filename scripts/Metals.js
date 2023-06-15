@@ -1,4 +1,4 @@
-import { getMetals, setMetal } from "./database.js"
+import { getMetals, setMetal, getTempOrderState } from "./database.js"
 
 const metals = getMetals()
 
@@ -30,12 +30,21 @@ document.addEventListener(
 
 // below is the new way: using the .map() array method.
 export const Metals = () => {
+    const tempState = getTempOrderState()
     let html = "<ul>"
 
     const listItems = metals.map(metal => { // creates a new array, "listItems"; iterates through each object, passed in as an argument ("metal")...
-        return `<li>
-            <input type="radio" name="metal" value="${metal.id}" /> ${metal.metal}
+        if (tempState.metalId === metal.id) {
+            return `<li>
+            <input type="radio" id="metalChoice${metal.id}" name="metal" value="${metal.id}" checked /><label for="metalChoice${metal.id}">${metal.metal}</label>
+        </li>`    
+        // adds "checked" attribute if the current orderBuilder obj has a matching metal Id. 
+        // Now, when HTML regenerates upon radio button click, the button will remain selected.
+        } else {
+            return `<li>
+            <input type="radio" id="metalChoice${metal.id}" name="metal" value="${metal.id}" /><label for="metalChoice${metal.id}">${metal.metal}</label>
         </li>` //...returns this string literal for each value in the new array.
+        }
     })
 
     html += listItems.join("") // .join() method joins all array values in listItems with (in this case) no characters into a single string.

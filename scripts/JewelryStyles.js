@@ -1,4 +1,4 @@
-import { getStyles, setStyle } from "./database.js"
+import { getStyles, setStyle, getTempOrderState } from "./database.js"
 
 const styles = getStyles()
 
@@ -13,13 +13,20 @@ document.addEventListener(
 )
 
 export const JewelryStyles = () => {
+    const tempState = getTempOrderState()
     let html = "<ul>"
 
     // Use .map() for converting objects to <li> elements
     const listItemsArray = styles.map(style => {
-        return `<li>
-            <input type="radio" name="style" value="${style.id}" /> ${style.style}
+        if (tempState.styleId === style.id) {
+            return `<li>
+            <input type="radio" id="JewelryStyle${style.id}" name="style" value="${style.id}" checked /><label for="JewelryStyle${style.id}">${style.style}</label>
         </li>`
+        } else {
+            return `<li>
+            <input type="radio" id="JewelryStyle${style.id}" name="style" value="${style.id}" /><label for="JewelryStyle${style.id}">${style.style}</label>
+        </li>`
+        }
     })
 
     // Join all of the strings in the array into a single string

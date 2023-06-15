@@ -52,7 +52,7 @@ export const Orders = () => {
         Can you explain why the state variable has to be inside
         the component function for Orders, but not the others?
     */
-    // nope!
+    // Yes: Because this function has to do with constantly-changing state. It will not work outside of this function.
 
     const orders = getOrders()
 

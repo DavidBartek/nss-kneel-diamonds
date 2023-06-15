@@ -63,7 +63,11 @@ export const getMetals = () => {
 }
 
 export const getShapes = () => {
-    return database.shapes.map(shape => ({...shape}))
+    return database.shapes.map(shape => ({...shape }))
+}
+
+export const getTempOrderState = () => {
+    return database.orderBuilder // exports a copy of the orderBuilder object (all others are exporting a copy of arrays)
 }
 
 export const getOrders = () => {
@@ -75,18 +79,22 @@ export const getOrders = () => {
 
 export const setMetal = (id) => {
     database.orderBuilder.metalId = id
+    document.dispatchEvent(new CustomEvent("stateChanged")) // dispatches HTML-regeneration function in main.js
 }
 
 export const setSize = (id) => {
     database.orderBuilder.sizeId = id
+    document.dispatchEvent(new CustomEvent("stateChanged")) // dispatches HTML-regeneration function in main.js
 }
 
 export const setStyle = (id) => {
     database.orderBuilder.styleId = id
+    document.dispatchEvent(new CustomEvent("stateChanged")) // dispatches HTML-regeneration function in main.js
 }
 
 export const setShape = (id) => {
     database.orderBuilder.shapeId = id
+    document.dispatchEvent(new CustomEvent("stateChanged")) // dispatches HTML-regeneration function in main.js
 }
 
 // Setter function - this function will be invoked to change/set the permanent state of customOrders in the database.
@@ -94,7 +102,6 @@ export const setShape = (id) => {
 export const addCustomOrder = () => {
     // Copy the current state of user choices
     const newOrder = { ...database.orderBuilder } // creates new object, newOrder, and assigns the current state of orderBuilder in database.
-    // *** why do we need spread operator + curly brackets? ***
 
     // Add a new primary key to the object
     const lastIndex = database.customOrders.length - 1 // creates new variable, lastIndex, and assigns the current length of the customOrders array, minus 1.

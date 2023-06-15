@@ -1,4 +1,4 @@
-import { getSizes, setSize } from "./database.js"
+import { getSizes, setSize, getTempOrderState } from "./database.js"
 
 const sizes = getSizes()
 
@@ -13,13 +13,20 @@ document.addEventListener(
 )
 
 export const DiamondSizes = () => {
+    const tempState = getTempOrderState()
     let html = "<ul>"
 
     // Use .map() for converting objects to <li> elements
     const listItems = sizes.map(size => {
-        return `<li>
-            <input type="radio" name="size" value="${size.id}" /> ${size.carets}
+        if (tempState.sizeId === size.id) {
+            return `<li>
+            <input type="radio" id="sizeChoice${size.id}" name="size" value="${size.id}" checked /><label for="sizeChoice${size.id}">${size.carets}</label>
+        </li>`    
+        } else {
+            return `<li>
+            <input type="radio" id="sizeChoice${size.id}" name="size" value="${size.id}" /><label for="sizeChoice${size.id}">${size.carets}</label>
         </li>`
+        }
     })
 
     // Join all of the strings in the array into a single string

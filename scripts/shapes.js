@@ -1,4 +1,4 @@
-import { getShapes, setShape } from "./database.js";
+import { getShapes, setShape, getTempOrderState } from "./database.js";
 
 const shapes = getShapes();
 
@@ -7,9 +7,14 @@ const shapes = getShapes();
 // each will contain a value utilizing pk id to be referenced by click event
 
 export const Shapes = () => {
+    const tempState = getTempOrderState()
     let html = "<div>"
     const shapeList = shapes.map(shape => {
-        return `<input type="radio" name="shape" value="${shape.id}" /> ${shape.shape}`
+        if (tempState.shapeId === shape.id) {
+            return `<input type="radio" id="shapeChoice${shape.id}" name="shape" value="${shape.id}" checked /><label for="shapeChoice${shape.id}">${shape.shape}</label>`
+        } else {
+            return `<input type="radio" id="shapeChoice${shape.id}" name="shape" value="${shape.id}" /><label for="shapeChoice${shape.id}">${shape.shape}</label>`
+        }
     })
     html += shapeList.join("")
     html += "</div>"
