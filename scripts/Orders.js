@@ -1,6 +1,6 @@
 // ***
 
-import { getOrders, getMetals, getSizes, getStyles, getShapes } from "./database.js"
+import { getOrders, getMetals, getSizes, getStyles, getShapes } from "./dataAccess.js"
 
 const buildOrderListItem = (order) => {
     // assign arrays from database to variables

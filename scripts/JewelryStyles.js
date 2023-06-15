@@ -1,4 +1,4 @@
-import { getStyles, setStyle, getTempOrderState } from "./database.js"
+import { getStyles, setStyle, getTempOrderState } from "./dataAccess.js"
 
 const styles = getStyles()
 

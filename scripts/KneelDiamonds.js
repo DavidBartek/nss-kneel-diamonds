@@ -5,7 +5,7 @@ import { DiamondSizes } from "./DiamondSizes.js"
 import { JewelryStyles } from "./JewelryStyles.js"
 import { Shapes } from "./shapes.js"
 import { Orders } from "./Orders.js"
-import { addCustomOrder } from "./database.js"
+import { addCustomOrder } from "./dataAccess.js"
 
 // event listener for Create Custom Order button.
 // listens for click;
